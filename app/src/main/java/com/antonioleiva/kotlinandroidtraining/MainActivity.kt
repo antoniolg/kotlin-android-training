@@ -6,10 +6,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val loginRequest = LoginRequest()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        submit.setOnClickListener { toast("user: ${username.text}, pass: ${password.text}") }
+        submit.setOnClickListener {
+
+            loginRequest.doLogin(username.text.toString(), password.text.toString()) { success ->
+
+                toast(if (success) "Success" else "Failure")
+
+            }
+
+        }
     }
 }
