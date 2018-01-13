@@ -13,11 +13,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = "Kotlin rules"
         submit.setOnClickListener { onSubmitClicked() }
     }
 
     private fun onSubmitClicked() {
-        loginRequest.doLogin(username.text.toString(), password.text.toString()) { success ->
+        loginRequest.doLogin(username.text?.toString(), password.text?.toString()) { success ->
 
             if (success)
                 toast("Success")
