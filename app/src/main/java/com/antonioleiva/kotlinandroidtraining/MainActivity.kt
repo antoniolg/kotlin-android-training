@@ -18,18 +18,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSubmitClicked() {
-        loginRequest.doLogin(username.text?.toString(), password.text?.toString()) { success ->
+        loginRequest.doLogin(username.text?.toString(), password.text?.toString()) { response ->
 
-            if (success)
-                toast("Success")
-            else
-                showFailureSnackbar()
-
+            when (response) {
+                Success -> toast("Success")
+                is Failure -> showFailureSnackbar(response.error)
+            }
         }
     }
 
-    private fun showFailureSnackbar() {
-        container.snack("There was an error! Check your Internet", Snackbar.LENGTH_INDEFINITE) {
+    private fun showFailureSnackbar(error: String) {
+        container.snack(error, Snackbar.LENGTH_INDEFINITE) {
             setAction("Retry") { toast("Retrying") }
         }
     }
